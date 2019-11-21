@@ -1,12 +1,20 @@
 const path = require('path')
 const express = require('express')
+const hbs = require('hbs')
 
 const app = express()
-const publicDirectoryPath = path.join(__dirname, '../public')
-const viewsPath = path.join(__dirname, '../templates')
 
+//path to publick and path to remplate Express config
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
+
+//setup handlebars engine and views location
 app.set('view engine','hbs')
 app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
+
+//setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
@@ -25,7 +33,9 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        message: "Capito's Message"
+        message: "Capito's Help Message",
+        title: 'Help',
+        name: 'Dade Capo'
     })
 })
 
