@@ -40,9 +40,29 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
+    if (!req.query.address) {
+        return res.send({
+            error: 'Provide Address'
+        })
+    }
+    
     res.send({
         location: 'Miami',
-        forecast: 'All the types of weathers in one day!'
+        forecast: 'Rain, Sun, Hot, Humid in one day!',
+        adress: req.query.address
+    })
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You Must Search Something'
+        })
+    }
+
+    console.log(req.query.search)
+    res.send({
+        products: []
     })
 })
 
